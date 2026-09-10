@@ -10,8 +10,6 @@ The repository separates the mathematical core, the class-specific diagram, and 
 - `confidence_correctness_diagram.py` — documented, reusable implementation of the global and class-specific `R/O/U/A` decomposition and the Confidence--Correctness Diagram. It uses `certainty_ratio.py` for the probability-mass mathematics.
 - `confidence_correctness_pipeline.v5.py` — modularised version of pipeline v4. It preserves the experimental design and output schema of v4, but delegates the mathematical decomposition to `certainty_ratio.py` and the class-specific analysis/plotting to `confidence_correctness_diagram.py`.
 - `examples/simple_diagram.py` — minimal stand-alone example using only true labels and probability vectors.
-- `examples/leukemia_gse28497_example.py` — end-to-end example that loads the CuMiDa Leukaemia dataset, fits a Random Forest under 5-fold stratified cross-validation, and generates the class-specific Confidence--Correctness Diagram together with the class profile table.
-- `examples/features_512_example.py` — end-to-end 35-class example for `512_features.csv`, using 5-fold stratified out-of-fold Random Forest probabilities and exporting both the diagram and class-specific profiles.
 - `tests/test_confidence_correctness_diagram.py` — numerical and structural tests for the class-specific decomposition.
 
 ## Mathematical mapping
@@ -85,24 +83,6 @@ print(class_profiles)
 
 The convenience function derives hard predictions from the largest probability when `y_pred` is not supplied. When the module is used from pipeline v5, the classifier's hard predictions are supplied explicitly so that the hard confusion matrix remains identical to pipeline v4.
 
-## GitHub-ready worked example: `Leukemia_GSE28497`
-
-The repository includes `examples/leukemia_gse28497_example.py`, an end-to-end script that accepts either `Leukemia_GSE28497.csv` or `Leukemia_GSE28497.csv.zip`, performs 5-fold stratified out-of-fold evaluation with a `RandomForestClassifier`, and then calls `save_confidence_correctness_diagram` to generate the class-specific diagram.
-
-Example command:
-
-```bash
-python examples/leukemia_gse28497_example.py \
-  /path/to/Leukemia_GSE28497.csv.zip \
-  --output examples/leukemia_gse28497_confidence_correctness.png \
-  --profiles-csv examples/leukemia_gse28497_class_profiles.csv
-```
-
-This produces:
-
-- `examples/leukemia_gse28497_confidence_correctness.png`
-- `examples/leukemia_gse28497_class_profiles.csv`
-
 ## Reproducing the Leukaemia example (Figure 3)
 
 Place the exact `Leukemia_GSE28497.csv` file used in the study in a directory by itself, for example:
@@ -132,24 +112,6 @@ Imagenes/figure3_Leukemia_GSE28497__RF__raw_confidence_correctness.png
 ```
 
 Reproducing the exact published numerical values additionally requires the same dataset version and software environment used for the study.
-
-## Additional multiclass worked example: `512_features.csv`
-
-The repository also includes a larger 35-class example based on `512_features.csv` (6756 samples and 511 predictor variables). The script performs 5-fold stratified out-of-fold Random Forest evaluation and uses the same `confidence_correctness_diagram.py` module to produce the class-specific probability-mass profiles.
-
-```bash
-python examples/features_512_example.py \
-  /path/to/512_features.csv \
-  --output examples/features_512_confidence_correctness.png \
-  --profiles-csv examples/features_512_class_profiles.csv
-```
-
-This produces:
-
-- `examples/features_512_confidence_correctness.png`
-- `examples/features_512_class_profiles.csv`
-
-The example is useful for illustrating how the diagram scales to a substantially larger multiclass problem, where class-specific patterns can differ markedly across the 35 diagnostic classes.
 
 ## Full experimental pipeline
 
