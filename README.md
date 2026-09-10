@@ -19,12 +19,10 @@ The repository separates the mathematical core, the class-specific diagram, and 
 H = V = T.T @ Q_plus
 L = U = T.T @ Q_minus
 ```
-For each true class `alpha`, the row-normalised profile satisfies
-
-```text
-R_alpha + O_alpha + U_alpha + A_alpha = 1
+For each true class $\alpha$, the row-normalised profile satisfies
+```math
+\mathrm{R}_\alpha + \mathrm{O}_\alpha + \mathrm{U}_\alpha + \mathrm{A}_\alpha =1
 ```
-
 where:
 
 - `R` — Reliability: decisive mass assigned to the true class;
