@@ -135,6 +135,7 @@ The diagram is written to:
 ```text
 Imagenes/figure3_Leukemia_GSE28497__RF__raw_confidence_correctness.png
 ```
+<img width="3270" height="1194" alt="image" src="https://github.com/user-attachments/assets/d46c132f-b3a8-4017-b8f8-74289eba98f0" />
 
 Reproducing the exact published numerical values additionally requires the same dataset version used for the study.
 
