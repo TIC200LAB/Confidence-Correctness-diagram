@@ -106,6 +106,7 @@ save_confidence_correctness_diagram(
     output_path="iris_confidence_correctness.png",
 )
 ```
+<img width="3269" height="908" alt="image" src="https://github.com/user-attachments/assets/53dd03de-6b58-41b7-b919-e9d304f29adc" />
 
 ## Reproducing the Leukaemia example (Figure 3)
 
