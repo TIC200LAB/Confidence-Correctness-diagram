@@ -1,6 +1,6 @@
-# Class-specific Confidence--Correctness Diagram
+# Class-specific Confidence-Correctness Diagram
 
-Reference implementation of the probability-mass decomposition and the class-specific **Confidence--Correctness Diagram** used in the manuscript *A Probabilistic Framework for Class-specific Evaluation of Diagnostic Systems*.
+Reference implementation of the probability-mass decomposition and the class-specific **Confidence-Correctness Diagram** used in the manuscript *A Probabilistic Framework for Class-specific Evaluation of Diagnostic Systems*.
 
 The repository separates the mathematical core, the class-specific diagram, and the experimental pipeline so that the diagram can be reused independently of the benchmark code.
 
