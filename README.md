@@ -77,8 +77,6 @@ print(metrics)
 print(class_profiles)
 ```
 
-The convenience function derives hard predictions from the largest probability when `y_pred` is not supplied. 
-
 ## Reproducing the Leukaemia example (Figure 3)
 
 Place the exact `Leukemia_GSE28497.csv` file used in the study in a directory by itself, for example:
