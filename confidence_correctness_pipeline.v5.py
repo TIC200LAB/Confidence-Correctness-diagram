@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Confidence--Correctness evaluation pipeline for probabilistic classifiers (v5).
+Confidence--Correctness evaluation pipeline for probabilistic classifiers.
 
-This version preserves the experimental behaviour and outputs of pipeline v4
+This version preserves the experimental behaviour and outputs of pipeline 
 while delegating the probability-mass mathematics to ``certainty_ratio.py``
 and the class-specific analysis/diagram to ``confidence_correctness_diagram.py``.
 
@@ -716,9 +716,6 @@ def run(config: Config) -> None:
     setup_logging(config.verbose)
     auto_output_prefix = config.output_prefix is None
     if auto_output_prefix:
-        # The required timestamp must reflect the completion time. Files created
-        # during the run are written temporarily without a prefix and renamed
-        # once all evaluations have finished.
         config.output_prefix = ""
     elif config.output_prefix and not config.output_prefix.endswith("_"):
         config.output_prefix = f"{config.output_prefix}_"
