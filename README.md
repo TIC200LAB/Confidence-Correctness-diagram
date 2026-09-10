@@ -32,51 +32,6 @@ where:
 - `U` — Underconfidence: residual mass assigned to wrong classes when the top-1 prediction is correct;
 - `A` — Ambiguity: residual mass retained by the true class when the top-1 prediction is wrong.
 
-## Installation
-
-Python 3.10 or newer is recommended.
-
-```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-The versions in `requirements.txt` are the versions used for the equivalence checks described below. The optional `imcp` dependency used by pipeline is not included in the supplied source files; MCP/IMCP columns are left as `NaN` when that module is unavailable.
-
-## Stand-alone use
-
-The diagram module can be used without the benchmark pipeline:
-
-```python
-import numpy as np
-
-from confidence_correctness_diagram import save_confidence_correctness_diagram
-
-classes = np.array(["A", "B", "C"])
-y_true = np.array(["A", "A", "B", "B", "C", "C"])
-
-proba = np.array([
-    [0.80, 0.10, 0.10],
-    [0.30, 0.60, 0.10],
-    [0.10, 0.80, 0.10],
-    [0.20, 0.70, 0.10],
-    [0.10, 0.20, 0.70],
-    [0.60, 0.20, 0.20],
-])
-
-metrics, class_profiles, matrices = save_confidence_correctness_diagram(
-    y_true=y_true,
-    proba=proba,
-    classes=classes,
-    output_path="confidence_correctness.png",
-    title="Example",
-)
-
-print(metrics)
-print(class_profiles)
-```
-
 ## Minimum script example (Iris dataset)
 ```python
 import numpy as np
@@ -136,9 +91,3 @@ The diagram is written to:
 Imagenes/figure3_Leukemia_GSE28497__RF__raw_confidence_correctness.png
 ```
 <img width="3270" height="1194" alt="image" src="https://github.com/user-attachments/assets/d46c132f-b3a8-4017-b8f8-74289eba98f0" />
-
-Reproducing the exact published numerical values additionally requires the same dataset version used for the study.
-
-## Notes on reproducibility
-
-All model assessment should preferably use out-of-fold or otherwise genuinely held-out probability vectors. The stand-alone diagram functions do not fit a classifier and therefore do not enforce a validation design; that responsibility remains with the calling workflow.
