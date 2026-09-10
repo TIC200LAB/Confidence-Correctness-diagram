@@ -10,7 +10,6 @@ The repository separates the mathematical core, the class-specific diagram, and 
 - `confidence_correctness_diagram.py` — documented, reusable implementation of the global and class-specific `R/O/U/A` decomposition and the Confidence--Correctness Diagram. It uses `certainty_ratio.py` for the probability-mass mathematics.
 - `confidence_correctness_pipeline.v5.py` — modularised version of pipeline.
 - `examples/simple_diagram.py` — minimal stand-alone example using only true labels and probability vectors.
-- `tests/test_confidence_correctness_diagram.py` — numerical and structural tests for the class-specific decomposition.
 
 ## Mathematical mapping
 
@@ -108,30 +107,7 @@ The diagram is written to:
 Imagenes/figure3_Leukemia_GSE28497__RF__raw_confidence_correctness.png
 ```
 
-Reproducing the exact published numerical values additionally requires the same dataset version and software environment used for the study.
-
-## Full experimental pipeline
-
-```bash
-python confidence_correctness_pipeline.v5.py \
-  --data-dir ../data_nature \
-  --results-dir results \
-  --images-dir Imagenes
-```
-
-## Tests
-
-Run:
-
-```bash
-python -m unittest discover -s tests -v
-```
-
-A quick end-to-end pipeline self-test is also available:
-
-```bash
-python confidence_correctness_pipeline.v5.py --self-test
-```
+Reproducing the exact published numerical values additionally requires the same dataset version used for the study.
 
 ## Notes on reproducibility
 
