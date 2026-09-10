@@ -8,21 +8,18 @@ The repository separates the mathematical core, the class-specific diagram, and 
 
 - `certainty_ratio.py` — classifier-independent mathematical core. It constructs `T`, `P`, `Q`, `Q_plus`, `Q_minus`, the hard and probabilistic confusion matrices, the decisive/residual matrices, and the corresponding scalar quantities.
 - `confidence_correctness_diagram.py` — documented, reusable implementation of the global and class-specific `R/O/U/A` decomposition and the Confidence--Correctness Diagram. It uses `certainty_ratio.py` for the probability-mass mathematics.
-- `confidence_correctness_pipeline.v5.py` — modularised version of pipeline v4. It preserves the experimental design and output schema of v4, but delegates the mathematical decomposition to `certainty_ratio.py` and the class-specific analysis/plotting to `confidence_correctness_diagram.py`.
+- `confidence_correctness_pipeline.v5.py` — modularised version of pipeline.
 - `examples/simple_diagram.py` — minimal stand-alone example using only true labels and probability vectors.
 - `tests/test_confidence_correctness_diagram.py` — numerical and structural tests for the class-specific decomposition.
 
 ## Mathematical mapping
 
-`certainty_ratio.py` denotes the decisive and residual probability-mass matrices by `V` and `U`. Pipeline v4 used the names `H` and `L` for these same matrices. To preserve complete backward compatibility, `confidence_correctness_diagram.py` exports
+`certainty_ratio.py` denotes the decisive and residual probability-mass matrices by `V` and `U`. Pipeline used the names `H` and `L` for these same matrices. To preserve complete backward compatibility, `confidence_correctness_diagram.py` exports
 
 ```text
 H = V = T.T @ Q_plus
 L = U = T.T @ Q_minus
 ```
-
-The symbol `U` in the class-specific `R/O/U/A` profile denotes **underconfidence** and must not be confused with the residual matrix `U` used internally by `certainty_ratio.py`.
-
 For each true class `alpha`, the row-normalised profile satisfies
 
 ```text
@@ -46,7 +43,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-The versions in `requirements.txt` are the versions used for the equivalence checks described below. The optional `imcp` dependency used by pipeline v4 is not included in the supplied source files; as in v4, MCP/IMCP columns are left as `NaN` when that module is unavailable.
+The versions in `requirements.txt` are the versions used for the equivalence checks described below. The optional `imcp` dependency used by pipeline is not included in the supplied source files; MCP/IMCP columns are left as `NaN` when that module is unavailable.
 
 ## Stand-alone use
 
@@ -81,7 +78,7 @@ print(metrics)
 print(class_profiles)
 ```
 
-The convenience function derives hard predictions from the largest probability when `y_pred` is not supplied. When the module is used from pipeline v5, the classifier's hard predictions are supplied explicitly so that the hard confusion matrix remains identical to pipeline v4.
+The convenience function derives hard predictions from the largest probability when `y_pred` is not supplied. 
 
 ## Reproducing the Leukaemia example (Figure 3)
 
@@ -91,7 +88,7 @@ Place the exact `Leukemia_GSE28497.csv` file used in the study in a directory by
 data/leukaemia/Leukemia_GSE28497.csv
 ```
 
-The target column is expected to be `type`, as in the study datasets. To generate the raw Random Forest Confidence--Correctness Diagram using the same pipeline configuration as v4:
+The target column is expected to be `type`, as in the study datasets. To generate the raw Random Forest Confidence--Correctness Diagram using the same pipeline configuration:
 
 ```bash
 python confidence_correctness_pipeline.v5.py \
@@ -115,28 +112,12 @@ Reproducing the exact published numerical values additionally requires the same 
 
 ## Full experimental pipeline
 
-Running v5 without a model subset evaluates the same classifiers defined in v4 (`RF`, `LR`, and `MLP`) over every CSV file in the data directory:
-
 ```bash
 python confidence_correctness_pipeline.v5.py \
   --data-dir ../data_nature \
   --results-dir results \
   --images-dir Imagenes
 ```
-
-The command-line interface, classifier definitions, cross-validation procedure, calibration options, output tables, filenames, matrix exports, reliability diagrams, and Confidence--Correctness diagrams are preserved from v4.
-
-## v4 / v5 equivalence
-
-The modularisation was checked against the supplied `confidence_correctness_pipeline.v4.py` on a fixed synthetic three-class dataset. With the same environment and random seed:
-
-- detailed CSV results were exactly equal;
-- class-specific CSV results were exactly equal;
-- reliability-bin and aggregate CSV results were exactly equal;
-- all generated PNG files were byte-identical;
-- all worksheet names and cell values in the generated Excel workbooks were identical.
-
-The comparison was performed for raw RF/LR runs and for raw plus sigmoid-calibrated RF runs. Thus, the refactoring changes code organisation, not the numerical definitions or experimental results.
 
 ## Tests
 
