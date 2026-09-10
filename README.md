@@ -1,4 +1,4 @@
-# Confidence--Correctness Diagram
+# Class-specific Confidence--Correctness Diagram
 
 Reference implementation of the probability-mass decomposition and the class-specific **Confidence--Correctness Diagram** used in the manuscript *A Probabilistic Framework for Class-specific Evaluation of Diagnostic Systems*.
 
