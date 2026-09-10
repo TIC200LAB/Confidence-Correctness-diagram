@@ -77,6 +77,36 @@ print(metrics)
 print(class_profiles)
 ```
 
+## Minimum script example (Iris dataset)
+```python
+import numpy as np
+
+from sklearn.datasets import load_iris
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import StratifiedKFold, cross_val_predict
+
+from confidence_correctness_diagram import save_confidence_correctness_diagram
+
+
+iris = load_iris()
+X = iris.data
+y = iris.target_names[iris.target]
+classes = iris.target_names
+
+rf = RandomForestClassifier(n_estimators=500, random_state=42)
+
+cv = StratifiedKFold(n_splits=10, shuffle=True, random_state=42)
+
+proba = cross_val_predict(rf, X, y, cv=cv, method="predict_proba")
+
+save_confidence_correctness_diagram(
+    y_true=y,
+    proba=proba,
+    classes=classes,
+    output_path="iris_confidence_correctness.png",
+)
+```
+
 ## Reproducing the Leukaemia example (Figure 3)
 
 Place the exact `Leukemia_GSE28497.csv` file used in the study in a directory by itself, for example:
