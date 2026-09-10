@@ -97,13 +97,9 @@ def safe_divide(num: np.ndarray, den: np.ndarray) -> np.ndarray:
 
 
 def _prepare_probabilities_like_v4(probabilities: np.ndarray) -> np.ndarray:
-    """Clip and row-normalise probabilities exactly as pipeline v4 did.
+    """Clip and row-normalise probabilities.
 
-    The upstream :mod:`certainty_ratio` module deliberately validates a
-    probability matrix strictly. Pipeline v4, however, first clipped values to
-    ``[0, 1]`` and normalised each row. Reproducing that preprocessing here
-    keeps v5 numerically compatible with v4 while still relying on
-    ``certainty_ratio.evaluate_probabilities`` for the mathematical objects.
+    `certainty_ratio` module deliberately validates probability matrix strictly. 
     """
     Q = np.asarray(probabilities, dtype=float)
     if Q.ndim != 2:
@@ -132,7 +128,7 @@ def confidence_correctness_analysis(
     y_pred:
         Hard prediction for each instance. The hard confusion matrix and the
         hard sensitivity/precision values are built from these labels, exactly
-        as in pipeline v4. The probability-mass decomposition itself is based
+        as in pipeline. The probability-mass decomposition itself is based
         on the top-1 class of ``proba``.
     proba:
         Probability matrix with shape ``(n_samples, n_classes)``. Columns must
@@ -271,9 +267,7 @@ def plot_class_confidence_correctness(
     -----
     Every horizontal bar represents one true class and sums to one in absolute
     mass. Reliability and ambiguity are shown to the right of zero;
-    overconfidence and underconfidence are mirrored to the left. The colours,
-    axis range, tick labelling, ordering and legend placement intentionally
-    match pipeline v4.
+    overconfidence and underconfidence are mirrored to the left.
     """
     required = {
         "class",
